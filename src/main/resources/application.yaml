@@ -1,0 +1,17 @@
+server:
+  port: 8085
+
+spring:
+  application:
+    name: whoistobuy-telegram
+
+  datasource:
+#    url: jdbc:postgresql://service-db:5430/witb
+    url: jdbc:postgresql://localhost:5432/witb
+    driver-class-name: org.postgresql.Driver
+    username: postgres
+    password: postgres
+
+bot:
+  name: whoistobuy_bot
+  token: 7995594733:AAFBYbN5ErKULIYg2zQ9N6zpn724ifT812Y
