@@ -10,7 +10,7 @@ import ru.alexeyrand.whoistobuytelegram.dto.CodeRequest;
 @RestController
 @RequestMapping("/api/v1/auth-notification")
 @RequiredArgsConstructor
-public class AuthNotificationRestController {
+public class AuthNotificationRestController extends NotificationRestController {
 
     /**
      * Создать новое объявление по имени пользователя
