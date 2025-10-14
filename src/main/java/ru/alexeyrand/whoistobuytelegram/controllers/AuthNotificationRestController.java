@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import ru.alexeyrand.whoistobuytelegram.dto.CodeRequest;
+import ru.alexeyrand.whoistobuytelegram.dto.NotificationDto;
 
 @RestController
 @RequestMapping("/api/v1/auth-notification")
@@ -18,7 +19,8 @@ public class AuthNotificationRestController extends NotificationRestController {
      * @return
      */
     @GetMapping("/")
-    public String verifyCode(@RequestBody CodeRequest codeRequest) {
+    public String verifyCode(@RequestBody NotificationDto notificationDto) {
+        String username = notificationDto.getUsername();
 
         return "hello, i am telegram";
     }
