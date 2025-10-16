@@ -6,5 +6,5 @@ import ru.alexeyrand.whoistobuytelegram.entities.TelegramUser;
 
 @Repository
 public interface TelegramUserRepository extends BaseRepository<TelegramUser> {
-
+    boolean existsByUsername(String username);
 }
