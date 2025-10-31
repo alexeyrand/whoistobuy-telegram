@@ -7,7 +7,6 @@ import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 @Component
 public class TelegramUtils {
 
-
     @SneakyThrows
     public SendMessage sendMessage(String message, Long chatId) {
         SendMessage sendMessage = new SendMessage();
@@ -15,5 +14,6 @@ public class TelegramUtils {
         sendMessage.setText(message);
         return sendMessage;
     }
+
 
 }

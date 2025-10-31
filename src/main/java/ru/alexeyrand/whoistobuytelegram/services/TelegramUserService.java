@@ -1,5 +1,6 @@
 package ru.alexeyrand.whoistobuytelegram.services;
 
+import jakarta.ws.rs.NotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.alexeyrand.whoistobuybase.repositories.BaseRepository;
@@ -15,10 +16,12 @@ public class TelegramUserService extends BaseService<TelegramUser> {
     private final TelegramUserRepository telegramUserRepository;
 
     public boolean isRegisteredOnTelegram(String username) {
-        boolean existsByUsername = telegramUserRepository.existsByUsername(username);
-        return true;
+        return telegramUserRepository.existsByUsername(username);
     }
 
+    public TelegramUser findTelegramUserByUsername(String username) {
+        return telegramUserRepository.findByUsername(username).orElseThrow(NotFoundException::new);
+    }
 
 
 

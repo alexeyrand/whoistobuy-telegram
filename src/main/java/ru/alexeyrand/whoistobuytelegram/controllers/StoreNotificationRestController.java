@@ -1,24 +1,26 @@
 package ru.alexeyrand.whoistobuytelegram.controllers;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import ru.alexeyrand.whoistobuytelegram.dto.NotificationDto;
+import ru.alexeyrand.whoistobuytelegram.services.TelegramNotificationService;
 
 @RestController
 @RequestMapping("/api/v1/store-notification")
 @RequiredArgsConstructor
 public class StoreNotificationRestController {
 
-    /**
-     * Создать новое объявление по имени пользователя
-     * @param
-     * @return
-     */
-    @GetMapping("/")
-    public String addItemByUsername() {
+    private TelegramNotificationService telegramNotificationService;
 
-        return "hello, i am telegram";
+    /**
+     * Отправить уведомление о новом объявлении по имени пользователя
+     */
+    @PostMapping("/")
+    public String postItemNotification(@Valid @RequestBody NotificationDto notificationDto) {
+        String username = notificationDto.getUsername();
+        telegramNotificationService.sendNotification(username);
+        return "test return";
     }
 
 }

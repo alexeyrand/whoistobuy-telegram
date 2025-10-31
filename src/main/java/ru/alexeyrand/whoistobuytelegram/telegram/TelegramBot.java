@@ -56,4 +56,9 @@ public class TelegramBot extends TelegramLongPollingBot {
         }
     }
 
+    @SneakyThrows
+    public void send(SendMessage sendMessage) {
+        this.execute(sendMessage);
+    }
+
 }

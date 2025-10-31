@@ -5,6 +5,6 @@ import ru.alexeyrand.whoistobuybase.entities.BaseEntity;
 
 @Data
 public class TelegramUser extends BaseEntity {
-    private long username;
+    private String username;
     private long chatId;
 }
