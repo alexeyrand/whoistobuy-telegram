@@ -11,12 +11,10 @@ import ru.alexeyrand.whoistobuytelegram.dto.NotificationDto;
 @RestController
 @RequestMapping("/api/v1/auth-notification")
 @RequiredArgsConstructor
-public class AuthNotificationRestController extends NotificationRestController {
+public class AuthNotificationRestController {
 
     /**
      * Создать новое объявление по имени пользователя
-     * @param
-     * @return
      */
     @GetMapping("/")
     public String verifyCode(@RequestBody NotificationDto notificationDto) {

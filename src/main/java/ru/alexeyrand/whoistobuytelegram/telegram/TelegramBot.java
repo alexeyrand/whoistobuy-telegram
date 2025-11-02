@@ -7,9 +7,18 @@ import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.Update;
+import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
+import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.InlineKeyboardButton;
 import ru.alexeyrand.whoistobuybase.services.UserService;
 import ru.alexeyrand.whoistobuytelegram.config.BotConfig;
+import ru.alexeyrand.whoistobuytelegram.entities.TelegramUser;
+import ru.alexeyrand.whoistobuytelegram.enums.InlineKeyboardType;
+import ru.alexeyrand.whoistobuytelegram.services.TelegramUserService;
+import ru.alexeyrand.whoistobuytelegram.telegram.Inline.RegisterInlineKeyboard;
 import ru.alexeyrand.whoistobuytelegram.utils.TelegramUtils;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -18,6 +27,7 @@ public class TelegramBot extends TelegramLongPollingBot {
     private final BotConfig botConfig;
     private final UserService userService;
     private final TelegramUtils telegramUtils;
+    private final TelegramUserService telegramUserService;
 
     @Override
     public String getBotUsername() {
@@ -42,8 +52,13 @@ public class TelegramBot extends TelegramLongPollingBot {
     public void onUpdateReceived(Update update) {
         if (update.hasMessage()) {
             Message message = update.getMessage();
-            String telephone = message.getText();
             Long chatId = message.getChatId();
+            if (!telegramUserService.isRegisteredOnTelegram(chatId)) {
+                SendMessage sendMessage = InlineKeyboardType.REGISTRATION.createMessage(chatId);
+                this.send(sendMessage);
+            }
+
+            String telephone = message.getText();
 
             // Если такого пользователя еще нет в базе данных - предложить зарегистрироваться
             if (!userService.existsByChatId(chatId)) {
@@ -55,6 +70,7 @@ public class TelegramBot extends TelegramLongPollingBot {
             }
         }
     }
+
 
     @SneakyThrows
     public void send(SendMessage sendMessage) {

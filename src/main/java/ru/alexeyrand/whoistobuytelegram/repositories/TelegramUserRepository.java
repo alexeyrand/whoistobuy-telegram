@@ -9,5 +9,7 @@ import java.util.Optional;
 @Repository
 public interface TelegramUserRepository extends BaseRepository<TelegramUser> {
     boolean existsByUsername(String username);
+    boolean existsByChatId(Long username);
     Optional<TelegramUser> findByUsername(String username);
+    Optional<TelegramUser> findByChatId(Long chatId);
 }
