@@ -5,6 +5,8 @@ import lombok.SneakyThrows;
 import org.springframework.stereotype.Service;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
+import org.telegram.telegrambots.meta.api.objects.CallbackQuery;
+import org.telegram.telegrambots.meta.api.objects.MaybeInaccessibleMessage;
 import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
@@ -15,6 +17,8 @@ import ru.alexeyrand.whoistobuytelegram.entities.TelegramUser;
 import ru.alexeyrand.whoistobuytelegram.enums.InlineKeyboardType;
 import ru.alexeyrand.whoistobuytelegram.services.TelegramUserService;
 import ru.alexeyrand.whoistobuytelegram.telegram.Inline.RegisterInlineKeyboard;
+import ru.alexeyrand.whoistobuytelegram.telegram.callback.BaseCallBackQueryHandler;
+import ru.alexeyrand.whoistobuytelegram.telegram.callback.RegisterCallBackQueryHandler;
 import ru.alexeyrand.whoistobuytelegram.utils.TelegramUtils;
 
 import java.util.ArrayList;
@@ -28,6 +32,8 @@ public class TelegramBot extends TelegramLongPollingBot {
     private final UserService userService;
     private final TelegramUtils telegramUtils;
     private final TelegramUserService telegramUserService;
+    private final BaseCallBackQueryHandler callBackQueryHandler;
+
 
     @Override
     public String getBotUsername() {
@@ -60,14 +66,21 @@ public class TelegramBot extends TelegramLongPollingBot {
 
             String telephone = message.getText();
 
-            // Если такого пользователя еще нет в базе данных - предложить зарегистрироваться
-            if (!userService.existsByChatId(chatId)) {
-                SendMessage sendMessage = telegramUtils.sendMessage("Для работы с телеграм ботом вам необходимо зарегистрироваться", chatId);
-                this.execute(sendMessage);
-            } else {
-                SendMessage sendMessage = telegramUtils.sendMessage("Привет!", chatId);
-                this.execute(sendMessage);
-            }
+
+            SendMessage sendMessage = telegramUtils.sendMessage("Привет!", chatId);
+            this.execute(sendMessage);
+
+
+        // Обработка нажатий на inline кнопки
+        } else if (update.hasCallbackQuery()) {
+            CallbackQuery query = update.getCallbackQuery();
+
+            MaybeInaccessibleMessage message = query.getMessage();
+
+            Long chatId = message.getChatId();
+            String data = query.getData();
+
+            callBackQueryHandler.fillData(data);
         }
     }
 

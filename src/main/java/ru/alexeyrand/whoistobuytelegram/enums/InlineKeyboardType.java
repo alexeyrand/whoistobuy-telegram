@@ -15,9 +15,7 @@ public enum InlineKeyboardType {
 
         @Override
         public InlineKeyboardMarkup createKeyboard() {
-            // создание клавиатуры для регистрации
             InlineKeyboardMarkup markup = new InlineKeyboardMarkup();
-            // ... настройка
             return markup;
         }
     },
@@ -30,9 +28,7 @@ public enum InlineKeyboardType {
 
         @Override
         public InlineKeyboardMarkup createKeyboard() {
-            // создание клавиатуры для меню
             InlineKeyboardMarkup markup = new InlineKeyboardMarkup();
-            // ... настройка
             return markup;
         }
     };
