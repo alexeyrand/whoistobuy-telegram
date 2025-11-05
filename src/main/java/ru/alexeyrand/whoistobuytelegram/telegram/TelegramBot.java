@@ -9,20 +9,12 @@ import org.telegram.telegrambots.meta.api.objects.CallbackQuery;
 import org.telegram.telegrambots.meta.api.objects.MaybeInaccessibleMessage;
 import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.Update;
-import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
-import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.InlineKeyboardButton;
 import ru.alexeyrand.whoistobuybase.services.UserService;
 import ru.alexeyrand.whoistobuytelegram.config.BotConfig;
-import ru.alexeyrand.whoistobuytelegram.entities.TelegramUser;
 import ru.alexeyrand.whoistobuytelegram.enums.InlineKeyboardType;
 import ru.alexeyrand.whoistobuytelegram.services.TelegramUserService;
-import ru.alexeyrand.whoistobuytelegram.telegram.Inline.RegisterInlineKeyboard;
 import ru.alexeyrand.whoistobuytelegram.telegram.callback.BaseCallBackQueryHandler;
-import ru.alexeyrand.whoistobuytelegram.telegram.callback.RegisterCallBackQueryHandler;
 import ru.alexeyrand.whoistobuytelegram.utils.TelegramUtils;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @Service
 @RequiredArgsConstructor

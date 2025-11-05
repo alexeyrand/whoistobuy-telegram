@@ -3,6 +3,7 @@ package ru.alexeyrand.whoistobuytelegram.telegram.callback;
 import java.util.HashMap;
 import java.util.Map;
 
+
 public class BaseCallBackQueryHandler {
 
     private BaseCallBackQueryHandler handler;
